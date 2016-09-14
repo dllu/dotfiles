@@ -1,7 +1,8 @@
-#!/usr/bin/bash
+#!/bin/bash
 mkdir -p ~/.config/nvim ~/.config/i3 ~/.config/fish
-ln -s /home/dllu/sync/dotfiles/nvimrc ~/.config/nvim/init.vim
-ln -s /home/dllu/sync/dotfiles/i3config ~/.config/i3/config
-ln -s /home/dllu/sync/dotfiles/config.fish ~/.config/fish/config.fish
-ln -s /home/dllu/sync/dotfiles/Xresources ~/.config/Xresources
+curdir=$(pwd)
+ln -s $curdir/nvimrc ~/.config/nvim/init.vim
+ln -s $curdir/i3config ~/.config/i3/config
+ln -s $curdir/config.fish ~/.config/fish/config.fish
+ln -s $curdir/Xresources ~/.config/Xresources
 
