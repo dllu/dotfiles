@@ -35,3 +35,25 @@ set autoread
 map j gj
 map k gk
 set clipboard+=unnamedplus
+set autoread
+
+" plug
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'kana/vim-operator-user'
+Plug 'rhysd/vim-clang-format'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'flazz/vim-colorschemes'
+Plug 'octol/vim-cpp-enhanced-highlight'
+call plug#end()
+
+" airline
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_theme='molokai'
+
+" c++
+let g:cpp_class_scope_highlight=1
+
+colorscheme molokai
+set background=dark
