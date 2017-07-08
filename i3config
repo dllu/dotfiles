@@ -201,6 +201,5 @@ exec dunst
 exec nm-applet
 exec xsetwacom --set "Wacom Intuos PT M Pen stylus" mapToOutput 3840x2160+3840+0
 exec xsetwacom --set "Wacom Intuos PT M Pen eraser" mapToOutput 3840x2160+3840+0
-exec /home/dllu/sync/scripts/sshfs.sh
 exec xrdb -merge /home/dllu/.config/Xresources
 exec compton -CGb
