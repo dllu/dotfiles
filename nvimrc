@@ -1,7 +1,6 @@
 set history=10000
 filetype plugin on
 filetype indent on
-set autoread
 let $LANG='en'
 set langmenu=en
 " enable mouse
@@ -30,7 +29,6 @@ set visualbell
 set ruler
 set backspace=indent,eol,start
 set relativenumber
-set autoread
 " gj, gk
 map j gj
 map k gk
@@ -50,10 +48,41 @@ call plug#end()
 " airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='molokai'
+let g:airline_theme='hybrid'
+let g:airline_powerline_fonts=1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " c++
 let g:cpp_class_scope_highlight=1
+let g:cpp_member_variable_highlight=1
+let g:cpp_class_decl_highlight=1
 
-colorscheme molokai
-set background=dark
+colorscheme hybrid_material
+"set background=dark
+au FileType cpp ClangFormatAutoEnable
+au BufRead,BufNewFile *.log set nowrap
