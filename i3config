@@ -168,8 +168,7 @@ client.unfocused #1c1c1c #1c1c1c #888888 #333333 #1c1c1c
 client.urgent #EDE4DF #EDE4DF #ffffff #900000 #EDE4DF
 
 #border style
-new_window normal
-#hide_edge_borders both
+default_border normal
 
 # except for urxvt
 for_window [class="^mpv$"] border none
