@@ -20,6 +20,6 @@ urxvt.color15: #ffffff
 
 urxvt.scrollBar: false
 
-urxvt.font: xft:monospace:size=9
 *background: #000000
 *foreground: #000000
+urxvt.font: xft:monospace:size=12
