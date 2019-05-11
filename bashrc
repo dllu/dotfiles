@@ -15,11 +15,6 @@ export PATH
 
 export EDITOR="nvim"
 
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cudnn:/opt/cuda/lib64
-export LD_LIBRARY_PATH
-
-export CUDA_HOME=/opt/cuda
-
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
