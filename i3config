@@ -24,7 +24,8 @@ font monospace 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt -e fish
+# bindsym $mod+Return exec urxvt -e fish
+bindsym $mod+Return exec alacritty -e fish
 
 # screenshot
 bindsym --release $mod+Shift+x exec ~/sync/scripts/screenshot-wayland.sh
@@ -172,11 +173,11 @@ default_border normal
 
 # except for urxvt
 for_window [class="^mpv$"] border none
-for_window [class="^Firefox"] border none
-for_window [class="tarCraft"] fullscreen enable
-for_window [class="^URxvt$"] border pixel 5
+for_window [class="^Nightly$"] border none
+for_window [app_id="^Alacritty$"] border pixel 5
 
 #startup programs
-exec xrdb -merge /home/dllu/.config/Xresources
 exec autocutsel -fork
+exec mako --default-timeout 5
+exec ibus-daemon
 output * bg /home/dllu/pictures/oblique.png fit
