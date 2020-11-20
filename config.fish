@@ -1,13 +1,15 @@
 function fish_prompt
-    set_color -o red
+    set_color -o purple
     echo -n (basename $PWD)
-    set_color blue
+    set_color red
     echo -n ' » '
 end
 
 set fish_greeting ""
 
 alias vim nvim
+
+alias ssh 'TERM=xterm-256color /usr/bin/ssh'
 
 set EDITOR nvim
 

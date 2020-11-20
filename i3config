@@ -28,7 +28,7 @@ floating_modifier $mod
 bindsym $mod+Return exec alacritty -e fish
 
 # screenshot
-bindsym --release $mod+Shift+x exec ~/sync/scripts/screenshot-wayland.sh
+bindsym --release Mod4+Shift+s exec ~/sync/scripts/screenshot-wayland.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -163,7 +163,7 @@ bar {
 }
 
 # class border background text indicator child_border
-client.focused #344169 #344169 #CFCFD9 #192033 #344169
+client.focused #413459 #413459 #CFCFD9 #192033 #413459
 client.focused_inactive #1c1c1c #1c1c1c #888888 #333333 #1c1c1c
 client.unfocused #1c1c1c #1c1c1c #888888 #333333 #1c1c1c
 client.urgent #EDE4DF #EDE4DF #ffffff #900000 #EDE4DF
@@ -174,10 +174,12 @@ default_border normal
 # except for urxvt
 for_window [class="^mpv$"] border none
 for_window [class="^Nightly$"] border none
+for_window [class="^Chromium$"] border none
 for_window [app_id="^Alacritty$"] border pixel 5
+for_window [app_id="^firefox$"] border none
 
 #startup programs
 exec autocutsel -fork
 exec mako --default-timeout 5
-exec ibus-daemon
+exec xrdb -merge ~/.config/Xresources
 output * bg /home/dllu/pictures/oblique.png fit

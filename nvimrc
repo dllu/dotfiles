@@ -43,6 +43,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 " airline
@@ -82,7 +85,11 @@ let g:cpp_class_scope_highlight=1
 let g:cpp_member_variable_highlight=1
 let g:cpp_class_decl_highlight=1
 
+" rust
+let g:rustfmt_autosave = 1
+
 colorscheme hybrid_material
 "set background=dark
 au FileType cpp ClangFormatAutoEnable
+au BufWritePre *.py 0,$!yapf
 au BufRead,BufNewFile *.log set nowrap

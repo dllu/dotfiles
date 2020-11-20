@@ -1,3 +1,4 @@
+Xft.dpi: 96
 URxvt.internalBorder: 16
 urxvt.background: #1c1c1c
 urxvt.foreground: #f7f7f7
