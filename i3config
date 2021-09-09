@@ -18,24 +18,25 @@ set $mod Mod1
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font monospace 11
+font pango:monospace 14
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec urxvt -e fish
 bindsym $mod+Return exec alacritty -e fish
+bindsym $mod+Shift+Return exec cool-retro-term -p pup -e fish
 
 # screenshot
-bindsym --release Mod4+Shift+s exec ~/sync/scripts/screenshot-wayland.sh
+bindsym Mod4+Shift+s --release exec ~/sync/scripts/screenshot.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec dmenu_run -fn 'monospace-9' -nb \#1c1c1c -sb \#1c1c1c -nf \#B6B6BF -sf \#ffffff -p »
+#bindsym $mod+d exec dmenu_run -fn 'monospace-14' -nb \#0c0c0c -sb \#0c0c0c -nf \#B6B6BF -sf \#ffffff -p »
+bindsym $mod+d exec rofi -show run -theme dllu -font "monospace 14"
 
 bindsym $mod+Shift+z --release exec i3lock -d
 
@@ -149,37 +150,47 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
-    colors {
-        background #1c1c1c
-        statusline #cfcfd9
-        separator #1c1c1c
-# border background text
-        focused_workspace #1c1c1c #407fdd #cfcfd9
-        active_workspace #1c1c1c #407fdd #cfcfd9
-        inactive_workspace #1c1c1c #1c1c1c #cfcfd9
-        urgent_workspace #2f343a #ff3300 #ffffff
-    }
+        #mode hide
+        status_command i3status
+        modifier $mod
+        tray_output primary
+        colors {
+            background #0c0c0c
+            statusline #cfcfd9
+            separator #0c0c0c
+            # border background text
+            focused_workspace #0c0c0c #407fdd #cfcfd9
+            active_workspace #0c0c0c #407fdd #cfcfd9
+            inactive_workspace #0c0c0c #0c0c0c #cfcfd9
+            urgent_workspace #2f343a #ff3300 #ffffff
+        }
 }
 
-# class border background text indicator child_border
-client.focused #413459 #413459 #CFCFD9 #192033 #413459
-client.focused_inactive #1c1c1c #1c1c1c #888888 #333333 #1c1c1c
-client.unfocused #1c1c1c #1c1c1c #888888 #333333 #1c1c1c
-client.urgent #EDE4DF #EDE4DF #ffffff #900000 #EDE4DF
+
+# class border background text indicator
+client.focused #413459 #413459 #CFCFD9 #413459
+client.focused_inactive #0c0c0c #0c0c0c #888888 #333333
+client.unfocused #0c0c0c #0c0c0c #888888 #333333
+client.urgent #EDE4DF #EDE4DF #ffffff #900000
 
 #border style
-default_border normal
-
+new_window normal
 # except for urxvt
 for_window [class="^mpv$"] border none
 for_window [class="^Nightly$"] border none
+for_window [class="^firefox$"] border none
 for_window [class="^Chromium$"] border none
-for_window [app_id="^Alacritty$"] border pixel 5
-for_window [app_id="^firefox$"] border none
+for_window [class="^Alacritty$"] border pixel 5
+for_window [class="^qutebrowser$"] border none
+for_window [class="^continuum$"] floating enable
+for_window [class="^cool-retro-term$"] border none
+for_window [class="^Darktable$"] border none
 
 #startup programs
+exec hsetroot -full sync/art/puppy/oblique.png
 exec autocutsel -fork
-exec mako --default-timeout 5
-exec xrdb -merge ~/.config/Xresources
-output * bg /home/dllu/pictures/oblique.png fit
+exec dunst
+exec ibus-daemon -dxrR
+exec xrdb -merge /home/dllu/.config/Xresources
+#exec picom --config /home/dllu/.config/picom/picom
+exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1

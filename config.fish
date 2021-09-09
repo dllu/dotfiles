@@ -1,7 +1,7 @@
 function fish_prompt
     set_color -o purple
     echo -n (basename $PWD)
-    set_color red
+    set_color blue
     echo -n ' » '
 end
 

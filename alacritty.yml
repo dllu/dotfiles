@@ -5,7 +5,7 @@ window:
     decorations: none
 colors:
     primary:
-        background: '#1c1c1c'
+        background: '#0c0c0c'
         foreground: '#d0d2d1'
 
         # Normal colors
@@ -29,3 +29,5 @@ colors:
             magenta: '#f07178'  # Pink of the original material theme
             cyan:    '#89ddff'
             white:   '#ffffff'  # Arbitrary
+font:
+  size: 14.0

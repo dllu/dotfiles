@@ -1,6 +1,6 @@
 Xft.dpi: 96
 URxvt.internalBorder: 16
-urxvt.background: #1c1c1c
+urxvt.background: #0c0c0c
 urxvt.foreground: #f7f7f7
 urxvt.color0: #000000
 urxvt.color1: #c75646
@@ -21,6 +21,8 @@ urxvt.color15: #ffffff
 
 urxvt.scrollBar: false
 
-*background: #000000
-*foreground: #ffffff
-urxvt.font: xft:monospace:size=10
+urxvt.font: xft:monospace:size=14
+
+Sxiv.background: #000000
+Sxiv.foreground: #ffffff
+Sxiv.font: xft:monospace:size=14
