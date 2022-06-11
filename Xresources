@@ -26,3 +26,8 @@ urxvt.font: xft:monospace:size=14
 Sxiv.background: #000000
 Sxiv.foreground: #ffffff
 Sxiv.font: xft:monospace:size=14
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #ffffff
+Nsxiv.bar.font: xft:monospace:size=14
+Nsxiv.bar.background: #000000
+Nsxiv.bar.foreground: #ffffff

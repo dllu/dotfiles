@@ -8,6 +8,7 @@ end
 set fish_greeting ""
 
 alias vim nvim
+alias sxiv nsxiv
 
 alias ssh 'TERM=xterm-256color /usr/bin/ssh'
 
