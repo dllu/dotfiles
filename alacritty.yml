@@ -1,7 +1,4 @@
 window:
-    padding:
-        x: 16
-        y: 16
     decorations: none
 colors:
     primary:
