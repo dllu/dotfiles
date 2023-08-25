@@ -34,27 +34,35 @@ map('', 'k', 'gk')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    'wbthomason/packer.nvim',
-    'itchyny/lightline.vim',
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = "kyazdani42/nvim-web-devicons",
+        config = true
+    },
     'neovim/nvim-lspconfig',
     'EdenEast/nightfox.nvim',
     {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            require("nvim-treesitter.configs").setup {
+                ensure_installed = "all",
+                highlight = { enable = true, }
+            }
+        end
     },
-    { 'https://codeberg.org/esensar/nvim-dev-container' },
 })
 require('nightfox').setup({
     options = {
@@ -64,24 +72,6 @@ require('nightfox').setup({
 vim.cmd('colorscheme nightfox')
 vim.g.lightline = {colorscheme = "nightfox", active = {left = {{'mode', 'paste'}, {'readonly', 'absolutepath', 'modified'}}}}
 
--- treesitter
-require'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all"
-    ensure_installed = 'all',
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
-
-
-    highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-    }
-}
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -151,4 +141,17 @@ require'lspconfig'.rust_analyzer.setup{
         ["rust-analyzer"] = {}
     }
 }
-require("devcontainer").setup{}
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {{'filename', path = 2}},
+        lualine_x = {'encoding', {'fileformat', symbols = { unix = 'unix', dos = 'dos', mac = 'mac' }}, {'filetype', icons_enabled = false}},
+        lualine_y = {'progress'},
+        lualine_z = {'location'},
+    }
+}
+
