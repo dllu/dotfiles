@@ -21,6 +21,7 @@ vim.opt.tabstop = 4
 vim.opt.visualbell = true
 vim.opt.wildmenu = true
 vim.opt.wrap = true
+vim.opt.shada = nil
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
@@ -30,23 +31,38 @@ function map(mode, lhs, rhs, opts)
 end
 map('', 'j', 'gj')
 map('', 'k', 'gk')
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'itchyny/lightline.vim'
-    use 'neovim/nvim-lspconfig'
-    use 'EdenEast/nightfox.nvim'
-    use {
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+    'wbthomason/packer.nvim',
+    'itchyny/lightline.vim',
+    'neovim/nvim-lspconfig',
+    'EdenEast/nightfox.nvim',
+    {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
-    }
-end)
+    },
+    { 'https://codeberg.org/esensar/nvim-dev-container' },
+})
 require('nightfox').setup({
     options = {
         transparent = true
     }
 })
 vim.cmd('colorscheme nightfox')
-vim.g.lightline = { colorscheme = "nightfox" }
+vim.g.lightline = {colorscheme = "nightfox", active = {left = {{'mode', 'paste'}, {'readonly', 'absolutepath', 'modified'}}}}
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
@@ -104,9 +120,22 @@ require'lspconfig'.pylsp.setup{
     settings = {
         pylsp = {
             plugins = {
+                black = {
+                    enabled = true,
+                },
+                ruff = {
+                    enabled = true,
+                },
+                isort = {
+                    enabled = false,
+                },
+                pylint = {
+                    enabled = false,
+                },
                 pycodestyle = {
                     -- ignore = {'W391'},
-                    maxLineLength = 100
+                    maxLineLength = 120,
+                    ignore = {'E203', 'W503'}
                 }
             }
         }
@@ -122,3 +151,4 @@ require'lspconfig'.rust_analyzer.setup{
         ["rust-analyzer"] = {}
     }
 }
+require("devcontainer").setup{}
