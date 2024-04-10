@@ -27,4 +27,4 @@ colors:
             cyan:    '#89ddff'
             white:   '#ffffff'  # Arbitrary
 font:
-  size: 14.0
+  size: 12

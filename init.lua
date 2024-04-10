@@ -11,63 +11,65 @@ vim.opt.ignorecase = true
 vim.opt.mouse = 'a'
 vim.opt.relativenumber = true
 vim.opt.ruler = true
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 vim.opt.showcmd = true
 vim.opt.showmode = true
 vim.opt.signcolumn = 'yes'
 vim.opt.smartindent = true
 vim.opt.smarttab = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 vim.opt.visualbell = true
 vim.opt.wildmenu = true
 vim.opt.wrap = true
 vim.opt.shada = nil
+vim.cmd('autocmd BufNewFile,BufRead *.midl set filetype=python')
+
 function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 map('', 'j', 'gj')
 map('', 'k', 'gk')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
-        config = true
-    },
-    'neovim/nvim-lspconfig',
-    'EdenEast/nightfox.nvim',
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",
-                highlight = { enable = true, }
-            }
-        end
-    },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = "kyazdani42/nvim-web-devicons",
+    config = true
+  },
+  'neovim/nvim-lspconfig',
+  'EdenEast/nightfox.nvim',
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = "all",
+        highlight = { enable = true, }
+      }
+    end
+  },
 })
 require('nightfox').setup({
-    options = {
-        transparent = true
-    }
+  options = {
+    transparent = true
+  }
 })
 vim.cmd('colorscheme nightfox')
 vim.g.lightline = {colorscheme = "nightfox", active = {left = {{'mode', 'paste'}, {'readonly', 'absolutepath', 'modified'}}}}
@@ -83,75 +85,75 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>g', function()
+    vim.lsp.buf.format { async = true } 
+    vim.lsp.buf.code_action({
+      context = { only = { "source.organizeImports" } },
+      apply = true,
+    })
+  end, bufopts)
 end
-require'lspconfig'.pylsp.setup{
-    on_attach = on_attach,
+
+require'lspconfig'.ruff_lsp.setup{
+  on_attach = on_attach,
+  init_options = {
     settings = {
-        pylsp = {
-            plugins = {
-                black = {
-                    enabled = true,
-                },
-                ruff = {
-                    enabled = true,
-                },
-                isort = {
-                    enabled = false,
-                },
-                pylint = {
-                    enabled = false,
-                },
-                pycodestyle = {
-                    -- ignore = {'W391'},
-                    maxLineLength = 120,
-                    ignore = {'E203', 'W503'}
-                }
-            }
-        }
+      args = {},
     }
+  }
 }
 require'lspconfig'.clangd.setup{
-    on_attach = on_attach,
+  on_attach = on_attach,
 }
 require'lspconfig'.rust_analyzer.setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    settings = {
-        ["rust-analyzer"] = {}
-    }
+  on_attach = on_attach,
+  flags = lsp_flags,
+  settings = {
+    ["rust-analyzer"] = {}
+  }
 }
 require('lualine').setup {
-    options = {
-        icons_enabled = true,
-    },
-    sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {{'filename', path = 2}},
-        lualine_x = {'encoding', {'fileformat', symbols = { unix = 'unix', dos = 'dos', mac = 'mac' }}, {'filetype', icons_enabled = false}},
-        lualine_y = {'progress'},
-        lualine_z = {'location'},
-    }
+  options = {
+    icons_enabled = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{'filename', path = 2}},
+    lualine_x = {'encoding', {'fileformat', symbols = { unix = 'unix', dos = 'dos', mac = 'mac' }}, {'filetype', icons_enabled = false}},
+    lualine_y = {'progress'},
+    lualine_z = {'location'},
+  }
 }
 
+
+vim.keymap.set('n', '<space>f', ":lua RunScriptIfBufferIsNotModified('/home/dlu/msa/infrastructure/scripts/autofix %:p')<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<space>b', ":lua RunScriptIfBufferIsNotModified('/home/dlu/msa/infrastructure/scripts/msa_build.sh %:t:r')<CR>", { noremap = true, silent = true })
+function RunScriptIfBufferIsNotModified(path)
+  if vim.api.nvim_buf_get_option(0, 'modified') == false then
+    local cmd = string.format(":silent !%s &", path)
+    vim.cmd(cmd)
+  else
+    print("Buffer has unsaved changes. Save or discard changes before running the script.")
+  end
+end

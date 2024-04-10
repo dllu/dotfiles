@@ -18,17 +18,17 @@ set $mod Mod1
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font pango:monospace 14
+font pango:monospace 13
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec alacritty -e fish
-bindsym $mod+Shift+Return exec cool-retro-term -p pup -e fish
+bindsym $mod+Shift+Return exec alacritty -e ~/scripts/docker.sh
 
 # screenshot
-bindsym Mod4+Shift+s --release exec ~/sync/scripts/screenshot.sh
+bindsym Mod4+Shift+s --release exec ~/scripts/screenshot.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -36,9 +36,9 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
 #bindsym $mod+d exec dmenu_run -fn 'monospace-14' -nb \#0c0c0c -sb \#0c0c0c -nf \#B6B6BF -sf \#ffffff -p »
-bindsym $mod+d exec rofi -show run -theme dllu -font "monospace 14"
+bindsym $mod+d exec rofi -show run -theme dllu -font "monospace 11"
 
-bindsym $mod+Shift+z --release exec i3lock -d
+bindsym $mod+Shift+z --release exec i3lock -d -i ~/Pictures/pupsplode.png
 
 # change focus
 bindsym $mod+h focus left
@@ -123,26 +123,26 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+# same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -150,20 +150,20 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #mode hide
-        status_command i3status
-        modifier $mod
-        tray_output primary
-        colors {
-            background #0c0c0c
-            statusline #cfcfd9
-            separator #0c0c0c
-            # border background text
-            focused_workspace #0c0c0c #407fdd #cfcfd9
-            active_workspace #0c0c0c #407fdd #cfcfd9
-            inactive_workspace #0c0c0c #0c0c0c #cfcfd9
-            urgent_workspace #2f343a #ff3300 #ffffff
-        }
+#mode hide
+  status_command i3status
+    modifier $mod
+    tray_output primary
+    colors {
+      background #0c0c0c
+        statusline #cfcfd9
+        separator #0c0c0c
+# border background text
+        focused_workspace #0c0c0c #407fdd #cfcfd9
+        active_workspace #0c0c0c #407fdd #cfcfd9
+        inactive_workspace #0c0c0c #0c0c0c #cfcfd9
+        urgent_workspace #2f343a #ff3300 #ffffff
+    }
 }
 
 
@@ -182,15 +182,16 @@ for_window [class="^firefox$"] border none
 for_window [class="^Chromium$"] border none
 for_window [class="^Alacritty$"] border pixel 5
 for_window [class="^qutebrowser$"] border none
-for_window [class="^continuum$"] floating enable
-for_window [class="^cool-retro-term$"] border none
 for_window [class="^Darktable$"] border none
 
+# Hide Teams sharing pop-up as much as possible. Too low negative number will
+# reset the window to it's default position, -55 px works for 1920x1080 screen.
+for_window [floating_from="auto" title=" is sharing your screen.$"] border none, sticky enable, move position 0 px -55 px
+
+assign [class="MSA Viewer"] 3
+
 #startup programs
-exec hsetroot -full sync/art/puppy/oblique.png
-exec autocutsel -fork
+exec hsetroot -full ~/Pictures/tldr-7680.png
 exec dunst
-exec ibus-daemon -dxrR
-exec xrdb -merge /home/dllu/.config/Xresources
-#exec picom --config /home/dllu/.config/picom/picom
-exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+# exec ibus-daemon -dxrR
+exec xrdb -merge ~/.config/Xresources

@@ -9,6 +9,7 @@ set fish_greeting ""
 
 alias vim nvim
 alias sxiv nsxiv
+alias fd fdfind
 
 alias ssh 'TERM=xterm-256color /usr/bin/ssh'
 
@@ -22,3 +23,5 @@ end
 function fish_mode_prompt
   # NOOP - Disable vim mode indicator
 end
+fish_add_path /home/dlu/scripts
+fish_add_path /home/dlu/msa/infrastructure/scripts
