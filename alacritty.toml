@@ -1,0 +1,9 @@
+[colors.primary]
+background = "#0c0c0c"
+foreground = "#d0d2d1"
+
+[font]
+size = 14.0
+
+[window]
+decorations = "none"

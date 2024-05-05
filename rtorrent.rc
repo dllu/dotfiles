@@ -1,0 +1,26 @@
+# vim: set syntax=conf:
+# Maximum and minimum number of peers to connect to per torrent.
+throttle.min_peers.normal.set = 40
+throttle.max_peers.normal.set = 100
+
+# Default directory to save the downloaded torrents.
+directory.default.set = /home/dllu/leeching
+
+# Default session directory. Make sure you don't run multiple instance
+# of rTorrent using the same session directory.
+session.path.set = /home/dllu/.cache/rtorrent
+
+# Port range to use for listening.
+network.port_range.set = 6890-6891
+
+# Encryption options, set to none (default) or any combination of the following:
+# allow_incoming, try_outgoing, require, require_RC4, enable_retry, prefer_plaintext
+#
+# The example value allows incoming encrypted connections, starts unencrypted
+# outgoing connections but retries with encryption if they fail, preferring
+# plain-text to RC4 encryption after the encrypted handshake.
+protocol.encryption.set = allow_incoming,enable_retry,require
+
+
+# UDP port to use for DHT.
+dht.port.set = 6881
