@@ -20,3 +20,4 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
 eval `dircolors ~/.config/.dircolors`
+. "$HOME/.cargo/env"
