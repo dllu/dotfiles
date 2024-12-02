@@ -21,3 +21,4 @@ export QT_IM_MODULE=ibus
 export MAKEFLAGS="-j16"
 
 eval `dircolors ~/.config/.dircolors`
+. "$HOME/.cargo/env"
