@@ -105,31 +105,13 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
-require'lspconfig'.pylsp.setup{
-    on_attach = on_attach,
+require'lspconfig'.ruff.setup{
+  on_attach = on_attach,
+  init_options = {
     settings = {
-        pylsp = {
-            plugins = {
-                black = {
-                    enabled = true,
-                },
-                ruff = {
-                    enabled = true,
-                },
-                isort = {
-                    enabled = false,
-                },
-                pylint = {
-                    enabled = false,
-                },
-                pycodestyle = {
-                    -- ignore = {'W391'},
-                    maxLineLength = 120,
-                    ignore = {'E203', 'W503'}
-                }
-            }
-        }
+      args = {},
     }
+  }
 }
 require'lspconfig'.clangd.setup{
     on_attach = on_attach,

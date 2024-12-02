@@ -183,10 +183,12 @@ for_window [class="^cool-retro-term$"] border none
 for_window [class="^Darktable$"] border none
 
 #startup programs
-output HDMI-A-1 pos 0 0 res 7680x4320
+output HDMI-A-2 pos 0 0 res 7680x4320
 output * bg /home/dllu/sync/art/puppy/oblique.png fit
 exec autocutsel -fork
 exec mako --default-timeout 5
 exec ibus-daemon -dxrR
 exec xrdb -merge /home/dllu/.config/Xresources
 exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+exec_always xrandr --output XWAYLAND0 --primary
+exec wl-paste -pw wl-clipboard
