@@ -58,7 +58,7 @@ require('lazy').setup({
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",
+                ensure_installed = {"python", "cpp", "rust", "javascript"},
                 highlight = { enable = true, }
             }
         end

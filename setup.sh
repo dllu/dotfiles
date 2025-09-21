@@ -6,7 +6,8 @@ mkdir -p ~/.config/nvim \
     ~/.config/fontconfig \
     ~/.config/alacritty \
     ~/.config/rofi \
-    ~/.config/neofetch
+    ~/.config/neofetch \
+    ~/.config/waybar
 curdir=$(pwd)
 
 ln -s $curdir/init.lua ~/.config/nvim/init.lua
@@ -21,6 +22,8 @@ ln -s $curdir/neofetch.conf ~/.config/neofetch/config.conf
 ln -s $curdir/pup.txt ~/.config/neofetch/pup.txt
 ln -s $curdir/user-dirs.dirs ~/.config/user-dirs.dirs
 ln -s $curdir/rtorrent.rc ~/.rtorrent.rc
+ln -s $curdir/waybar_config ~/.config/waybar/config
+ln -s $curdir/waybar_style.css ~/.config/waybar/style.css
 
 mv ~/.bashrc ~/.bashrc_backup
 ln -s $curdir/bashrc ~/.bashrc

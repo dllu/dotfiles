@@ -22,3 +22,5 @@ end
 function fish_mode_prompt
   # NOOP - Disable vim mode indicator
 end
+
+set -x GPG_TTY (tty)

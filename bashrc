@@ -22,3 +22,4 @@ export MAKEFLAGS="-j16"
 
 eval `dircolors ~/.config/.dircolors`
 . "$HOME/.cargo/env"
+export GPG_TTY=$(tty)

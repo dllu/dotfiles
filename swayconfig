@@ -98,6 +98,12 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -123,26 +129,6 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-bar {
-    position top
-    status_command i3status
-    modifier $mod
-    tray_output primary
-    # the height of the m2 macbook air's notch???
-    height 56
-    colors {
-        background #000000
-        statusline #cfcfd9
-        separator #000000
-        # border background text
-        focused_workspace #0c0c0c #413459 #cfcfd9
-        active_workspace #0c0c0c #413459 #cfcfd9
-        inactive_workspace #0c0c0c #0c0c0c #cfcfd9
-        urgent_workspace #2f343a #ff3300 #ffffff
-    }
-}
-
 
 # class border background text indicator
 client.focused #413459 #413459 #CFCFD9 #413459

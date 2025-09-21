@@ -1,0 +1,107 @@
+/* Bar: exact 56px, no border/shadow, your colors */
+#waybar {
+  background: #000000;  /* background */
+  color: #cfcfd9;       /* statusline/text */
+  border: none;         /* kill border */
+  box-shadow: none;     /* kill bottom shadow line */
+  font-size: 16px;
+  font-family: monospace;
+}
+
+/* Give every module comfy horizontal padding */
+#battery, #clock, #network, #network.eth, #network.wifi, #workspaces {
+  padding: 17px;
+}
+
+/* Workspaces look & colors (matching your sway bar) */
+#workspaces {
+  padding: 0;  /* container padding already handled above */
+}
+
+#workspaces button {
+  border: none;
+  padding: 14px;         /* a bit more per-button padding */
+  background: #0c0c0c;     /* inactive background */
+  color: #cfcfd9;          /* inactive text */
+  border-radius: 0;
+}
+
+/* Focused and active (same colors per your config) */
+#workspaces button.focused,
+#workspaces button.active {
+  background: #413459;     /* focused/active background */
+  color: #cfcfd9;
+}
+
+/* Urgent */
+#workspaces button.urgent {
+  background: #ff3300;
+  color: #ffffff;
+}
+
+/* Optional hover */
+#workspaces button:hover {
+  background: #222222;
+}
+
+/* Slightly tighter separators (Waybar often has gaps) */
+.modules-left > * + *,
+.modules-right > * + * {
+  margin-left: 0;
+}
+
+/* --- Network --- */
+#network.disconnected, #network.wifi.disconnected, #network.eth.disconnected {
+  background: #660000; /* dark red when down */
+  color: #ffffff;
+}
+
+#network.wifi {
+  background: #003366; /* dark blue for wifi */
+  color: #cfcfd9;
+}
+
+#network.eth {
+  background: #004400; /* dark green for ethernet */
+  color: #cfcfd9;
+}
+
+/* --- Battery --- */
+#battery {
+  background: #222222; /* default background */
+}
+
+#battery.charging {
+  background: #224422; /* greenish when charging */
+  color: #cfcfd9;
+}
+
+#battery.discharging {
+  background: #332244; /* purplish when on battery */
+}
+
+#battery.warning {
+  background: #664400; /* orange warning (<15%) */
+  color: #ffffff;
+}
+
+#battery.critical {
+  background: #660000; /* red critical (<5%) */
+  color: #ffffff;
+}
+
+#battery.full {
+  background: #224422; /* same as charging = safe */
+  color: #cfcfd9;
+}
+
+#pulseaudio {
+  padding: 0 12px;
+  background: #222222;
+  color: #cfcfd9;
+}
+
+#pulseaudio.muted {
+  background: #660000;
+  color: #ffffff;
+}

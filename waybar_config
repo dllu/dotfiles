@@ -1,0 +1,61 @@
+{
+  "height": 56,
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": ["sway/workspaces"],
+  "modules-right": ["pulseaudio", "network", "battery", "clock"],
+
+  "sway/workspaces": {
+    "all-outputs": true,
+    "disable-scroll": false,
+    "disable-click": false,
+    "format": "{name}"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "scroll-step": 5,
+    "on-click": "pavucontrol-qt",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+        "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+        "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "phone-muted": "",
+        "portable": "",
+        "car": "",
+        "default": ["", ""]
+    }
+  },
+
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+        "format-disconnected": "", //An empty format will hide the module.
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50
+    },
+
+  "battery": {
+    "interval": 5,
+    "format": "{icon} {capacity}%",
+    "states": { "warning": 15, "critical": 5 },
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": false
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%Y-%m-%d %H:%M:%S}",
+    "tooltip": false
+  }
+}
