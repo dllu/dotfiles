@@ -23,7 +23,7 @@ vim.opt.wildmenu = true
 vim.opt.wrap = true
 vim.opt.shada = nil
 
--- Update to use vim.keymap.set for consistency (nvim_set_keymap is deprecated)
+-- Update to use vim.keymap.set for consistency
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
@@ -41,7 +41,7 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
@@ -57,7 +57,14 @@ require('lazy').setup({
     'EdenEast/nightfox.nvim',
     {
         "nvim-treesitter/nvim-treesitter",
-        -- Remove build, as installation is now handled separately
+        build = ":TSUpdate",  -- Automatically update parsers on plugin update/install
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = { "python", "cpp", "rust", "javascript" },
+                highlight = { enable = true },
+                -- Add other modules if needed, e.g., indent = { enable = true }
+            })
+        end,
     },
 })
 
@@ -67,38 +74,18 @@ require('nightfox').setup({
     }
 })
 vim.cmd('colorscheme nightfox')
--- Removed vim.g.lightline, as you're using lualine, not lightline
 
--- Install Treesitter parsers (replaces ensure_installed)
--- Run synchronously here for init.lua; in practice, you can run :TSInstall <lang> manually if needed
-require('nvim-treesitter').install {
-    'python', 'cpp', 'rust', 'javascript'
-}:wait()
-
--- Enable Treesitter highlighting via autocommand (replaces old highlight.enable)
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'python', 'cpp', 'rust', 'javascript' },
-    callback = function(args)
-        vim.treesitter.start(args.buf)
-    end,
-})
-
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
+-- Mappings for diagnostics
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- LSP on_attach
 local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'  -- Updated from deprecated nvim_buf_set_option
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -117,14 +104,14 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- Updated to new vim.lsp.config API (old lspconfig.setup is deprecated)
+-- LSP servers using the new vim.lsp.config API
 vim.lsp.config('ruff', {
-  on_attach = on_attach,
-  init_options = {
-    settings = {
-      args = {},
+    on_attach = on_attach,
+    init_options = {
+        settings = {
+            args = {},
+        }
     }
-  }
 })
 vim.lsp.enable('ruff')
 
