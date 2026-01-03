@@ -22,12 +22,14 @@ vim.opt.visualbell = true
 vim.opt.wildmenu = true
 vim.opt.wrap = true
 vim.opt.shada = nil
-function map(mode, lhs, rhs, opts)
+
+-- Update to use vim.keymap.set for consistency (nvim_set_keymap is deprecated)
+local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
     end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    vim.keymap.set(mode, lhs, rhs, options)
 end
 map('', 'j', 'gj')
 map('', 'k', 'gk')
@@ -55,22 +57,31 @@ require('lazy').setup({
     'EdenEast/nightfox.nvim',
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = {"python", "cpp", "rust", "javascript"},
-                highlight = { enable = true, }
-            }
-        end
+        -- Remove build, as installation is now handled separately
     },
 })
+
 require('nightfox').setup({
     options = {
         transparent = true
     }
 })
 vim.cmd('colorscheme nightfox')
-vim.g.lightline = {colorscheme = "nightfox", active = {left = {{'mode', 'paste'}, {'readonly', 'absolutepath', 'modified'}}}}
+-- Removed vim.g.lightline, as you're using lualine, not lightline
+
+-- Install Treesitter parsers (replaces ensure_installed)
+-- Run synchronously here for init.lua; in practice, you can run :TSInstall <lang> manually if needed
+require('nvim-treesitter').install {
+    'python', 'cpp', 'rust', 'javascript'
+}:wait()
+
+-- Enable Treesitter highlighting via autocommand (replaces old highlight.enable)
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'python', 'cpp', 'rust', 'javascript' },
+    callback = function(args)
+        vim.treesitter.start(args.buf)
+    end,
+})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -84,7 +95,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'  -- Updated from deprecated nvim_buf_set_option
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -105,24 +116,31 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
-require'lspconfig'.ruff.setup{
+
+-- Updated to new vim.lsp.config API (old lspconfig.setup is deprecated)
+vim.lsp.config('ruff', {
   on_attach = on_attach,
   init_options = {
     settings = {
       args = {},
     }
   }
-}
-require'lspconfig'.clangd.setup{
+})
+vim.lsp.enable('ruff')
+
+vim.lsp.config('clangd', {
     on_attach = on_attach,
-}
-require'lspconfig'.rust_analyzer.setup{
+})
+vim.lsp.enable('clangd')
+
+vim.lsp.config('rust_analyzer', {
     on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         ["rust-analyzer"] = {}
     }
-}
+})
+vim.lsp.enable('rust_analyzer')
+
 require('lualine').setup {
     options = {
         icons_enabled = true,
@@ -136,4 +154,3 @@ require('lualine').setup {
         lualine_z = {'location'},
     }
 }
-
