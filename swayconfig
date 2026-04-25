@@ -1,5 +1,8 @@
 set $mod Mod4
 
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+
 font pango:monospace 14
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -156,3 +159,4 @@ output * bg /home/dllu/pictures/oblique.png fit
 input 1452:849:Apple_MTP_multi-touch map_to_region 0 56 2560 1608
 exec autocutsel -fork
 exec mako --default-timeout 5
+exec waybar

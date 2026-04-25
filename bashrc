@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
+
 alias ls='ls --color=auto'
 alias vim='nvim'
 export PS1="\[\033[38;5;1m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]: \[$(tput sgr0)\]\[\033[38;5;10m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;12m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
@@ -23,3 +26,8 @@ export MAKEFLAGS="-j16"
 eval `dircolors ~/.config/.dircolors`
 . "$HOME/.cargo/env"
 export GPG_TTY=$(tty)
+
+# uv
+export PATH="/home/dllu/.local/bin:$PATH"
+
+. /home/dllu/sync/api_keys.sh
