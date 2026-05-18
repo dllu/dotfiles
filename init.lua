@@ -21,7 +21,11 @@ vim.opt.tabstop = 4
 vim.opt.visualbell = true
 vim.opt.wildmenu = true
 vim.opt.wrap = true
-vim.opt.shada = nil
+
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 -- Update to use vim.keymap.set for consistency
 local function map(mode, lhs, rhs, opts)
@@ -35,7 +39,7 @@ map('', 'j', 'gj')
 map('', 'k', 'gk')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -50,21 +54,44 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         config = true
     },
     'neovim/nvim-lspconfig',
     'EdenEast/nightfox.nvim',
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",  -- Automatically update parsers on plugin update/install
+        branch = "main",
+        lazy = false,
+        build = function()
+            if vim.fn.executable("tree-sitter") == 1 then
+                vim.cmd("TSUpdate")
+            end
+        end,
         config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = { "python", "cpp", "rust", "javascript" },
-                highlight = { enable = true },
-                -- Add other modules if needed, e.g., indent = { enable = true }
+            local treesitter = require("nvim-treesitter")
+            local languages = { "python", "c", "cpp", "rust", "javascript" }
+
+            treesitter.setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
+            })
+            vim.opt.rtp:append(vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/runtime")
+
+            if vim.fn.executable("tree-sitter") == 1 then
+                treesitter.install(languages)
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = languages,
+                callback = function(args)
+                    pcall(vim.treesitter.start, args.buf)
+                end,
             })
         end,
+    },
+}, {
+    rocks = {
+        enabled = false,
     },
 })
 
@@ -113,12 +140,16 @@ vim.lsp.config('ruff', {
         }
     }
 })
-vim.lsp.enable('ruff')
+if vim.fn.executable('ruff') == 1 then
+    vim.lsp.enable('ruff')
+end
 
 vim.lsp.config('clangd', {
     on_attach = on_attach,
 })
-vim.lsp.enable('clangd')
+if vim.fn.executable('clangd') == 1 then
+    vim.lsp.enable('clangd')
+end
 
 vim.lsp.config('rust_analyzer', {
     on_attach = on_attach,
@@ -126,7 +157,9 @@ vim.lsp.config('rust_analyzer', {
         ["rust-analyzer"] = {}
     }
 })
-vim.lsp.enable('rust_analyzer')
+if vim.fn.executable('rust-analyzer') == 1 then
+    vim.lsp.enable('rust_analyzer')
+end
 
 require('lualine').setup {
     options = {
