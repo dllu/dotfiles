@@ -31,3 +31,20 @@ export GPG_TTY=$(tty)
 export PATH="/home/dllu/.local/bin:$PATH"
 
 . /home/dllu/sync/api_keys.sh
+
+. "$HOME/.local/bin/env"
+
+# sparkrun tab-completion
+eval "$(_SPARKRUN_COMPLETE=bash_source sparkrun)"
+
+# Pi launchers select their own Node; remove its bin directory from inherited PATHs.
+_pi_runtime_bin="$HOME/.local/share/pi-node/node-v22.23.2-linux-arm64/bin"
+while [[ ":$PATH:" == *":$_pi_runtime_bin:"* ]]; do
+    PATH=":$PATH:"
+    PATH=${PATH/:"$_pi_runtime_bin":/:}
+    PATH=${PATH#:}
+    PATH=${PATH%:}
+done
+unset _pi_runtime_bin
+export PATH
+hash -r

@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -18,7 +18,7 @@ set $mod Mod1
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-font pango:monospace 14
+font pango:monospace 20
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -29,6 +29,9 @@ bindsym $mod+Shift+Return exec cool-retro-term -p pup -e fish
 
 # screenshot
 bindsym Mod4+Shift+s --release exec ~/sync/scripts/screenshot.sh
+
+# turn off monitors; wake on input
+bindsym $mod+Shift+o exec --no-startup-id /home/dllu/monitor-off.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -178,7 +181,7 @@ new_window normal
 # except for urxvt
 for_window [class="^mpv$"] border none
 for_window [class="^Nightly$"] border none
-for_window [class="^firefox$"] border none
+for_window [class="^firefox"] border none
 for_window [class="^Chromium$"] border none
 for_window [class="^Alacritty$"] border pixel 5
 for_window [class="^qutebrowser$"] border none

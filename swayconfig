@@ -15,6 +15,9 @@ bindsym $mod+Shift+Return exec cool-retro-term -p pup -e fish
 # screenshot
 bindsym Mod1+Shift+s exec ~/sync/scripts/screenshot-wayland.sh
 
+# turn off monitors; wake on input
+bindsym $mod+Shift+o exec /home/dllu/monitor-off.sh
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -149,14 +152,13 @@ for_window [class="^qutebrowser$"] border none
 for_window [class="^Darktable$"] border none
 
 #startup programs
-output HDMI-A-2 pos 0 0 res 7680x4320
+output * pos 0 0 res 6144x3456 scale 1.0
 exec xrdb -merge /home/dllu/.config/Xresources
 exec_always xrandr --output XWAYLAND0 --primary
 exec wl-paste -pw wl-clipboard
-output eDP-1 scale 1
-output * bg /home/dllu/pictures/oblique.png fit
+# output * bg /home/dllu/pictures/oblique.png fit
 
-input 1452:849:Apple_MTP_multi-touch map_to_region 0 56 2560 1608
+# input 1452:849:Apple_MTP_multi-touch map_to_region 0 56 2560 1608
 exec autocutsel -fork
 exec mako --default-timeout 5
 exec waybar

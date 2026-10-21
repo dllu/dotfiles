@@ -3,7 +3,7 @@ background = "#0c0c0c"
 foreground = "#d0d2d1"
 
 [font]
-size = 14.0
+size = 16.0
 
 [window]
 decorations = "none"
