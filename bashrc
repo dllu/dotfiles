@@ -10,7 +10,8 @@ export XDG_SESSION_TYPE=wayland
 
 alias ls='ls --color=auto'
 alias vim='nvim'
-export PS1="\[\033[38;5;1m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]: \[$(tput sgr0)\]\[\033[38;5;10m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;12m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+# Use the terminal's Latte ANSI palette and default foreground between segments.
+export PS1='\[\e[31m\]\h\[\e[0m\]: \[\e[32m\]\W\[\e[0m\] \[\e[34m\]\$\[\e[0m\] '
 
 
 PATH=$PATH:/home/dllu/sync/scripts
@@ -23,7 +24,9 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export MAKEFLAGS="-j16"
 
-eval `dircolors ~/.config/.dircolors`
+if command -v dircolors >/dev/null && [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/.dircolors" ]]; then
+    eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/.dircolors")"
+fi
 . "$HOME/.cargo/env"
 export GPG_TTY=$(tty)
 

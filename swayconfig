@@ -136,11 +136,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# class border background text indicator
-client.focused #413459 #413459 #CFCFD9 #413459
-client.focused_inactive #0c0c0c #0c0c0c #888888 #333333
-client.unfocused #0c0c0c #0c0c0c #888888 #333333
-client.urgent #EDE4DF #EDE4DF #ffffff #900000
+# Catppuccin Latte: class border background text indicator child_border
+# Inactive borders blend into Alacritty's background.
+client.focused #8839ef #8839ef #eff1f5 #7287fd #8839ef
+client.focused_inactive #eff1f5 #eff1f5 #4c4f69 #eff1f5 #eff1f5
+client.unfocused #eff1f5 #eff1f5 #6c6f85 #eff1f5 #eff1f5
+client.urgent #d20f39 #d20f39 #eff1f5 #d20f39 #d20f39
+client.background #eff1f5
 
 #border style
 default_border normal
@@ -148,7 +150,6 @@ for_window [class="mpv$"] border none
 for_window [app_id="firefox$"] border none
 for_window [app_id="^Chromium$"] border none
 for_window [app_id="^Alacritty$"] border pixel 5
-for_window [class="^qutebrowser$"] border none
 for_window [class="^Darktable$"] border none
 
 #startup programs
@@ -157,6 +158,7 @@ exec xrdb -merge /home/dllu/.config/Xresources
 exec_always xrandr --output XWAYLAND0 --primary
 exec wl-paste -pw wl-clipboard
 # output * bg /home/dllu/pictures/oblique.png fit
+output * bg #eff1f5 solid_color
 
 # input 1452:849:Apple_MTP_multi-touch map_to_region 0 56 2560 1608
 exec autocutsel -fork

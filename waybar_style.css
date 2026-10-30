@@ -1,107 +1,121 @@
-/* Bar: exact 56px, no border/shadow, your colors */
+/* Catppuccin Latte, with mauve for focused workspaces. */
+@define-color base #eff1f5;
+@define-color mantle #e6e9ef;
+@define-color crust #dce0e8;
+@define-color surface0 #ccd0da;
+@define-color surface1 #bcc0cc;
+@define-color text #4c4f69;
+@define-color subtext0 #6c6f85;
+@define-color mauve #8839ef;
+@define-color red #d20f39;
+@define-color yellow #df8e1d;
+@define-color green #40a02b;
+@define-color blue #1e66f5;
+
 #waybar {
-  background: #000000;  /* background */
-  color: #cfcfd9;       /* statusline/text */
-  border: none;         /* kill border */
-  box-shadow: none;     /* kill bottom shadow line */
+  background: @base;
+  color: @text;
+  border: none;
+  box-shadow: none;
   font-size: 16px;
   font-family: monospace;
 }
 
-/* Give every module comfy horizontal padding */
-#battery, #clock, #network, #network.eth, #network.wifi, #workspaces {
+#battery, #clock, #network, #workspaces {
   padding: 17px;
 }
 
-/* Workspaces look & colors (matching your sway bar) */
 #workspaces {
-  padding: 0;  /* container padding already handled above */
+  padding: 0;
 }
 
 #workspaces button {
   border: none;
-  padding: 14px;         /* a bit more per-button padding */
-  background: #0c0c0c;     /* inactive background */
-  color: #cfcfd9;          /* inactive text */
+  padding: 14px;
+  background: @mantle;
+  color: @subtext0;
   border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
 }
 
-/* Focused and active (same colors per your config) */
+#workspaces button:hover {
+  background: @surface0;
+  color: @text;
+}
+
 #workspaces button.focused,
 #workspaces button.active {
-  background: #413459;     /* focused/active background */
-  color: #cfcfd9;
+  background: @mauve;
+  color: @base;
 }
 
-/* Urgent */
 #workspaces button.urgent {
-  background: #ff3300;
-  color: #ffffff;
+  background: @red;
+  color: @base;
 }
 
-/* Optional hover */
-#workspaces button:hover {
-  background: #222222;
-}
-
-/* Slightly tighter separators (Waybar often has gaps) */
 .modules-left > * + *,
 .modules-right > * + * {
   margin-left: 0;
 }
 
-/* --- Network --- */
-#network.disconnected, #network.wifi.disconnected, #network.eth.disconnected {
-  background: #660000; /* dark red when down */
-  color: #ffffff;
+#network {
+  background: @mantle;
 }
 
 #network.wifi {
-  background: #003366; /* dark blue for wifi */
-  color: #cfcfd9;
+  color: @blue;
 }
 
-#network.eth {
-  background: #004400; /* dark green for ethernet */
-  color: #cfcfd9;
+#network.ethernet {
+  color: @green;
 }
 
-/* --- Battery --- */
+#network.disconnected {
+  background: @red;
+  color: @base;
+}
+
 #battery {
-  background: #222222; /* default background */
+  background: @crust;
 }
 
-#battery.charging {
-  background: #224422; /* greenish when charging */
-  color: #cfcfd9;
+#battery.charging,
+#battery.full {
+  color: @green;
 }
 
 #battery.discharging {
-  background: #332244; /* purplish when on battery */
+  color: @mauve;
 }
 
-#battery.warning {
-  background: #664400; /* orange warning (<15%) */
-  color: #ffffff;
+#battery.warning:not(.charging) {
+  background: @yellow;
+  color: @text;
 }
 
-#battery.critical {
-  background: #660000; /* red critical (<5%) */
-  color: #ffffff;
-}
-
-#battery.full {
-  background: #224422; /* same as charging = safe */
-  color: #cfcfd9;
+#battery.critical:not(.charging) {
+  background: @red;
+  color: @base;
 }
 
 #pulseaudio {
   padding: 0 12px;
-  background: #222222;
-  color: #cfcfd9;
+  background: @mantle;
+  color: @text;
 }
 
 #pulseaudio.muted {
-  background: #660000;
-  color: #ffffff;
+  color: @red;
+}
+
+tooltip {
+  background: @base;
+  color: @text;
+  border: 1px solid @surface1;
+}
+
+tooltip label {
+  color: @text;
 }

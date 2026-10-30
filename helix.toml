@@ -1,0 +1,7 @@
+theme = "catppuccin_latte"
+
+[editor]
+true-color = true
+
+[editor.soft-wrap]
+enable = true

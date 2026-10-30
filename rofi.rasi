@@ -1,35 +1,35 @@
 /******************************************************************************
- * ROFI Color theme
+ * ROFI Color theme: Catppuccin Latte (mauve accent)
  * User: dllu
  * Copyright: dllu
  ******************************************************************************/
 * {
-    selected-normal-foreground:  #f7f7f7;
-    foreground:                  #f7f7f7;
+    selected-normal-foreground:  #eff1f5;
+    foreground:                  #4c4f69;
     normal-foreground:           @foreground;
-    alternate-normal-background: #1a1a1a;
-    red:                         #c75646;
-    selected-urgent-foreground:  #c397d8;
-    blue:                        #7aa6da;
-    urgent-foreground:           rgba ( 218, 66, 129, 100 % );
-    alternate-urgent-background: rgba ( 0, 43, 55, 100 % );
-    active-foreground:           #b77ee0;
-    lightbg:                     rgba ( 238, 232, 213, 100 % );
-    selected-active-foreground:  rgba ( 0, 142, 212, 100 % );
-    alternate-active-background: rgba ( 0, 43, 55, 100 % );
-    background:                  #0c0c0c;
+    alternate-normal-background: #e6e9ef;
+    red:                         #d20f39;
+    selected-urgent-foreground:  #eff1f5;
+    blue:                        #1e66f5;
+    urgent-foreground:           @red;
+    alternate-urgent-background: #e6e9ef;
+    active-foreground:           #8839ef;
+    lightbg:                     #ccd0da;
+    selected-active-foreground:  #eff1f5;
+    alternate-active-background: #e6e9ef;
+    background:                  #eff1f5;
     alternate-normal-foreground: @foreground;
-    normal-background:           #0c0c0c;
-    lightfg:                     rgba ( 88, 104, 117, 100 % );
-    selected-normal-background:  #666666;
+    normal-background:           #eff1f5;
+    lightfg:                     #6c6f85;
+    selected-normal-background:  #8839ef;
     spacing:                     2;
-    urgent-background:           rgba ( 0, 43, 55, 100 % );
-    selected-urgent-background:  rgba ( 0, 54, 66, 100 % );
+    urgent-background:           #eff1f5;
+    selected-urgent-background:  @red;
     alternate-urgent-foreground: @urgent-foreground;
     background-color:            rgba ( 0, 0, 0, 0 % );
     alternate-active-foreground: @active-foreground;
-    active-background:           rgba ( 0, 43, 55, 100 % );
-    selected-active-background:  rgba ( 0, 54, 66, 100 % );
+    active-background:           #eff1f5;
+    selected-active-background:  #8839ef;
 }
 window {
     background-color: @background;

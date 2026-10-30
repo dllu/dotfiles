@@ -1,32 +1,38 @@
 #!/bin/bash
-mkdir -p ~/.config/nvim \
-    ~/.config/i3 \
-    ~/.config/sway \
-    ~/.config/fish \
-    ~/.config/fontconfig \
-    ~/.config/alacritty \
-    ~/.config/rofi \
-    ~/.config/neofetch \
-    ~/.config/waybar
-curdir=$(pwd)
+set -euo pipefail
 
-ln -s $curdir/init.lua ~/.config/nvim/init.lua
-ln -s $curdir/i3config ~/.config/i3/config
-ln -s $curdir/swayconfig ~/.config/sway/config
-ln -s $curdir/config.fish ~/.config/fish/config.fish
-ln -s $curdir/Xresources ~/.config/Xresources
-ln -s $curdir/fonts.conf ~/.config/fontconfig/fonts.conf
-ln -s $curdir/alacritty.toml ~/.config/alacritty/alacritty.toml
-ln -s $curdir/rofi.rasi ~/.config/rofi/dllu.rasi
-ln -s $curdir/neofetch.conf ~/.config/neofetch/config.conf
-ln -s $curdir/pup.txt ~/.config/neofetch/pup.txt
-ln -s $curdir/user-dirs.dirs ~/.config/user-dirs.dirs
-ln -s $curdir/rtorrent.rc ~/.rtorrent.rc
-ln -s $curdir/waybar_config ~/.config/waybar/config
-ln -s $curdir/waybar_style.css ~/.config/waybar/style.css
+repo_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-mv ~/.bashrc ~/.bashrc_backup
-ln -s $curdir/bashrc ~/.bashrc
+link_config() {
+    local source="$repo_dir/$1" destination="$2"
+    mkdir -p -- "$(dirname -- "$destination")"
 
-wget -O $curdir/dircolors.256dark -N https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-ln -s $curdir/dircolors.256dark ~/.config/.dircolors
+    if [[ -L "$destination" && "$(readlink -- "$destination")" == "$source" ]]; then
+        return
+    fi
+    if [[ -e "$destination" || -L "$destination" ]]; then
+        local backup="$destination.backup.$(date +%Y%m%d-%H%M%S-%N)"
+        mv -- "$destination" "$backup"
+        printf 'Backed up %s to %s\n' "$destination" "$backup"
+    fi
+    ln -s -- "$source" "$destination"
+}
+
+link_config init.lua "$config_dir/nvim/init.lua"
+link_config helix.toml "$config_dir/helix/config.toml"
+link_config i3config "$config_dir/i3/config"
+link_config swayconfig "$config_dir/sway/config"
+link_config config.fish "$config_dir/fish/config.fish"
+link_config Xresources "$config_dir/Xresources"
+link_config fonts.conf "$config_dir/fontconfig/fonts.conf"
+link_config alacritty.toml "$config_dir/alacritty/alacritty.toml"
+link_config rofi.rasi "$config_dir/rofi/dllu.rasi"
+link_config neofetch.conf "$config_dir/neofetch/config.conf"
+link_config pup.txt "$config_dir/neofetch/pup.txt"
+link_config user-dirs.dirs "$config_dir/user-dirs.dirs"
+link_config rtorrent.rc "$HOME/.rtorrent.rc"
+link_config waybar_config "$config_dir/waybar/config"
+link_config waybar_style.css "$config_dir/waybar/style.css"
+link_config dircolors.latte "$config_dir/.dircolors"
+link_config bashrc "$HOME/.bashrc"

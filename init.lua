@@ -2,6 +2,7 @@ vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.backspace = 'indent,eol,start'
 vim.opt.clipboard = 'unnamedplus'
+vim.opt.background = 'light'
 vim.opt.encoding = 'utf8'
 vim.opt.expandtab = true
 vim.opt.fileformats = 'unix,dos,mac'
@@ -18,6 +19,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.tabstop = 4
+vim.opt.termguicolors = true
 vim.opt.visualbell = true
 vim.opt.wildmenu = true
 vim.opt.wrap = true
@@ -58,7 +60,20 @@ require('lazy').setup({
         config = true
     },
     'neovim/nvim-lspconfig',
-    'EdenEast/nightfox.nvim',
+    {
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('catppuccin').setup({
+                flavour = 'latte',
+                transparent_background = false,
+                term_colors = true,
+            })
+            vim.cmd.colorscheme('catppuccin-latte')
+        end,
+    },
     {
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
@@ -94,13 +109,6 @@ require('lazy').setup({
         enabled = false,
     },
 })
-
-require('nightfox').setup({
-    options = {
-        transparent = true
-    }
-})
-vim.cmd('colorscheme nightfox')
 
 -- Mappings for diagnostics
 local opts = { noremap=true, silent=true }
@@ -164,6 +172,7 @@ end
 require('lualine').setup {
     options = {
         icons_enabled = true,
+        theme = 'catppuccin',
     },
     sections = {
         lualine_a = {'mode'},

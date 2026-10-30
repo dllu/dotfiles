@@ -38,7 +38,6 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-#bindsym $mod+d exec dmenu_run -fn 'monospace-14' -nb \#0c0c0c -sb \#0c0c0c -nf \#B6B6BF -sf \#ffffff -p »
 bindsym $mod+d exec rofi -show run -theme dllu -font "monospace 14"
 
 bindsym $mod+Shift+z --release exec i3lock -d
@@ -158,23 +157,25 @@ bar {
         modifier $mod
         tray_output primary
         colors {
-            background #0c0c0c
-            statusline #cfcfd9
-            separator #0c0c0c
+            background #eff1f5
+            statusline #4c4f69
+            separator #bcc0cc
             # border background text
-            focused_workspace #0c0c0c #407fdd #cfcfd9
-            active_workspace #0c0c0c #407fdd #cfcfd9
-            inactive_workspace #0c0c0c #0c0c0c #cfcfd9
-            urgent_workspace #2f343a #ff3300 #ffffff
+            focused_workspace #8839ef #8839ef #eff1f5
+            active_workspace #bcc0cc #e6e9ef #4c4f69
+            inactive_workspace #eff1f5 #eff1f5 #6c6f85
+            urgent_workspace #d20f39 #d20f39 #eff1f5
         }
 }
 
 
-# class border background text indicator
-client.focused #413459 #413459 #CFCFD9 #413459
-client.focused_inactive #0c0c0c #0c0c0c #888888 #333333
-client.unfocused #0c0c0c #0c0c0c #888888 #333333
-client.urgent #EDE4DF #EDE4DF #ffffff #900000
+# Catppuccin Latte: class border background text indicator child_border
+# Inactive borders blend into Alacritty's background.
+client.focused #8839ef #8839ef #eff1f5 #7287fd #8839ef
+client.focused_inactive #eff1f5 #eff1f5 #4c4f69 #eff1f5 #eff1f5
+client.unfocused #eff1f5 #eff1f5 #6c6f85 #eff1f5 #eff1f5
+client.urgent #d20f39 #d20f39 #eff1f5 #d20f39 #d20f39
+client.background #eff1f5
 
 #border style
 new_window normal
@@ -184,7 +185,6 @@ for_window [class="^Nightly$"] border none
 for_window [class="^firefox"] border none
 for_window [class="^Chromium$"] border none
 for_window [class="^Alacritty$"] border pixel 5
-for_window [class="^qutebrowser$"] border none
 for_window [class="^continuum$"] floating enable
 for_window [class="^cool-retro-term$"] border none
 for_window [class="^Darktable$"] border none
