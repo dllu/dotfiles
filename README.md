@@ -8,6 +8,7 @@ Run `./setup.sh` to link the configs into `$XDG_CONFIG_HOME` (defaulting to
 `~/.config`) and your home directory. Existing configs are kept as timestamped
 `.backup.*` files; running setup again leaves matching symlinks alone. The
 dircolors palette is tracked here as `dircolors.latte`, with no download at setup.
+Setup also links the Fastfetch config and sriv's config and key bindings.
 
 Helix uses its bundled `catppuccin_latte` theme and keeps soft wrapping enabled.
 Neovim installs [catppuccin/nvim](https://github.com/catppuccin/nvim) through

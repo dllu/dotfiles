@@ -1,0 +1,20 @@
+{
+  "logo": {
+    "type": "file-raw",
+    "source": "/home/dllu/proj/dotfiles/pup.txt",
+    "position": "left",
+    "width": 60
+  },
+  "display": {
+    "color": {
+      "keys": "#780096",
+      "title": "#780096"
+    }
+  },
+  "modules": [
+    "title", "separator", "os", "host", "kernel", "uptime", "packages",
+    "shell", "display", "de", "wm", "wmtheme", "theme", "icons", "font",
+    "cursor", "terminal", "terminalfont", "cpu", "gpu", "memory", "swap",
+    "disk", "localip", "battery", "poweradapter", "locale", "break", "colors"
+  ]
+}

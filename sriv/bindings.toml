@@ -1,0 +1,21 @@
+"ctrl+o" = "xdg-open {file}"
+"ctrl+u" = "cd /home/dllu/proj/pupphoto && uv run python upload_clipboard.py {file}"
+"ctrl+3" = "cd /home/dllu/proj/pupphoto && uv run python upload_clipboard.py {file} 3840"
+"ctrl+5" = "cd /home/dllu/proj/pupphoto && uv run python upload_clipboard.py {file} 5120"
+"ctrl+7" = "cd /home/dllu/proj/pupphoto && uv run python upload_clipboard.py {file} 7680"
+"ctrl+b" = "cd /home/dllu/proj/pupphoto && uv run python upload_blog.py {file}"
+"ctrl+w" = "cd /home/dllu/proj/pupphoto && uv run python upload_commons.py {file}"
+"ctrl+c" = "xclip -selection clipboard -target image/png -i {file}"
+"ctrl+e" = "exiv2 {file}"
+
+["ctrl+d"]
+command = "/home/dllu/proj/pupphoto/open_darktable.sh {file}"
+terminal = false
+
+["ctrl+g"]
+command = "gimp {file}"
+terminal = false
+
+["ctrl+r"]
+command = "/home/dllu/proj/rawpuppy/launch.sh {file}"
+terminal = false
